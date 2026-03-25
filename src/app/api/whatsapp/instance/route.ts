@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase-server'
 import { createInstance, deleteInstance, getConnectionState } from '@/lib/evolution'
-
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://app.masaralaqar.com'
+import { getAppUrl } from '@/lib/get-app-url'
 
 // POST: إنشاء instance جديد للمكتب
 export async function POST(req: NextRequest) {
@@ -26,7 +25,8 @@ export async function POST(req: NextRequest) {
 
     // اسم الـ instance فريد لكل مكتب
     const instanceName = `saqr-${officeId.slice(0, 8)}`
-    const webhookUrl = `${APP_URL}/api/webhook/whatsapp`
+    const appUrl = getAppUrl()
+    const webhookUrl = `${appUrl}/api/webhook/whatsapp`
 
     // أنشئ الـ instance على Evolution API
     const result = await createInstance(instanceName, webhookUrl)
@@ -67,6 +67,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       status: 'created',
       instanceName,
+      webhookUrl,
       data: result.data,
     })
   } catch (err) {

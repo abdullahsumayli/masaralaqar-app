@@ -9,11 +9,13 @@ import {
   Settings,
   LogOut,
   Building2,
+  MessageSquare,
 } from 'lucide-react'
 
 const navItems = [
   { href: '/dashboard', label: 'لوحة التحكم', icon: LayoutDashboard },
   { href: '/leads', label: 'العملاء المحتملون', icon: Users },
+  { href: '/dashboard/whatsapp', label: 'واتساب', icon: MessageSquare },
   { href: '/settings', label: 'الإعدادات', icon: Settings },
 ]
 
